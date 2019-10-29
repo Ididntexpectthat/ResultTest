@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydl.mapper.DemographicDataMapper">
+    <resultMap id="BaseResultMap" type="com.ydl.entity.DemographicData">
+        <id column="编号" jdbcType="INTEGER" property="编号"/>
+        <result column="城市名" jdbcType="VARCHAR" property="城市名"/>
+        <result column="区县名" jdbcType="VARCHAR" property="区县名"/>
+        <result column="乡镇名" jdbcType="VARCHAR" property="乡镇名"/>
+        <result column="行政村" jdbcType="VARCHAR" property="行政村"/>
+        <result column="总户数" jdbcType="INTEGER" property="总户数"/>
+        <result column="家庭户数" jdbcType="INTEGER" property="家庭户数"/>
+        <result column="集体户数" jdbcType="INTEGER" property="集体户数"/>
+        <result column="人口总数" jdbcType="INTEGER" property="人口总数"/>
+        <result column="男性人口总数" jdbcType="INTEGER" property="男性人口总数"/>
+        <result column="女性人口总数" jdbcType="INTEGER" property="女性人口总数"/>
+        <result column="男女比例" jdbcType="REAL" property="男女比例"/>
+        <result column="家庭户人口数" jdbcType="INTEGER" property="家庭户人口数"/>
+        <result column="家庭户男性人口总数" jdbcType="INTEGER" property="家庭户男性人口总数"/>
+        <result column="家庭户女性人口总数" jdbcType="INTEGER" property="家庭户女性人口总数"/>
+        <result column="家庭户男女比例" jdbcType="REAL" property="家庭户男女比例"/>
+        <result column="集体户人口数" jdbcType="INTEGER" property="集体户人口数"/>
+        <result column="集体户男性人口总数" jdbcType="INTEGER" property="集体户男性人口总数"/>
+        <result column="集体户女性人口总数" jdbcType="INTEGER" property="集体户女性人口总数"/>
+        <result column="集体户男女比例" jdbcType="REAL" property="集体户男女比例"/>
+        <result column="平均家庭户规模_人每户" jdbcType="REAL" property="平均家庭户规模人每户"/>
+        <result column="家庭户女性人口数" jdbcType="INTEGER" property="家庭户女性人口数"/>
+        <result column="家庭户男性人口数" jdbcType="INTEGER" property="家庭户男性人口数"/>
+        <result column="集体户女性人口数" jdbcType="INTEGER" property="集体户女性人口数"/>
+        <result column="集体户男性人口数" jdbcType="INTEGER" property="集体户男性人口数"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    编号, 城市名, 区县名, 乡镇名, 行政村, 总户数, 家庭户数, 集体户数, 人口总数, 男性人口总数, 女性人口总数, 男女比例, 家庭户人口数, 家庭户男性人口总数, 
+    家庭户女性人口总数, 家庭户男女比例, 集体户人口数, 集体户男性人口总数, 集体户女性人口总数, 集体户男女比例, 平均家庭户规模_人每户, 家庭户女性人口数, 
+    家庭户男性人口数, 集体户女性人口数, 集体户男性人口数
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from 人口数据.玉林市六普村级户数人口数和性别比总计表
+        where 编号 = #{编号,jdbcType=INTEGER}
+    </select>
+    <select id="getAllDemograhicData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from 人口数据.玉林市六普村级户数人口数和性别比总计表 order by 编号
+    </select>
+    <select id="getAllSelective" parameterType="com.ydl.entity.DemographicData"
+            resultType="java.util.HashMap">
+        select
+        <trim prefix="distinct " suffixOverrides=",">
+            <if test="区县名 == null and 乡镇名 == null and 行政村 == null">
+                区县名,
+            </if>
+            <if test="区县名 != null and 乡镇名 == null and 行政村 == null">
+                乡镇名,
+            </if>
+            <if test="区县名 != null and 乡镇名 != null and 行政村 == null">
+                行政村,
+            </if>
+            <if test="区县名 != null and 乡镇名 != null and 行政村 != null">
+                *
+            </if>
+        </trim>
+        -- *
+        from 人口数据.玉林市六普村级户数人口数和性别比总计表
+        <if test=" 城市名 != null or 区县名 != null or 乡镇名 != null or 行政村 != null">
+            <trim prefix="where " suffixOverrides="and">
+                <if test="城市名 != null">
+                    城市名 = #{城市名,jdbcType=VARCHAR} and
+                </if>
+                <if test="区县名 != null">
+                    区县名 = #{区县名,jdbcType=VARCHAR} and
+                </if>
+                <if test="乡镇名 != null">
+                    乡镇名 = #{乡镇名,jdbcType=VARCHAR} and
+                </if>
+                <if test="行政村 != null">
+                    行政村 = #{行政村,jdbcType=VARCHAR} and
+                </if>
+            </trim>
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 人口数据.玉林市六普村级户数人口数和性别比总计表
+    where 编号 = #{编号,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="编号" keyProperty="编号" parameterType="com.ydl.entity.DemographicData"
+            useGeneratedKeys="true">
+    insert into 人口数据.玉林市六普村级户数人口数和性别比总计表 (城市名, 区县名, 乡镇名,
+      行政村, 总户数, 家庭户数, 集体户数, 
+      人口总数, 男性人口总数, 女性人口总数, 
+      男女比例, 家庭户人口数, 家庭户男性人口总数, 
+      家庭户女性人口总数, 家庭户男女比例, 集体户人口数, 
+      集体户男性人口总数, 集体户女性人口总数, 集体户男女比例, 
+      平均家庭户规模_人每户, 家庭户女性人口数, 家庭户男性人口数, 
+      集体户女性人口数, 集体户男性人口数)
+    values (#{城市名,jdbcType=VARCHAR}, #{区县名,jdbcType=VARCHAR}, #{乡镇名,jdbcType=VARCHAR}, 
+      #{行政村,jdbcType=VARCHAR}, #{总户数,jdbcType=INTEGER}, #{家庭户数,jdbcType=INTEGER}, #{集体户数,jdbcType=INTEGER}, 
+      #{人口总数,jdbcType=INTEGER}, #{男性人口总数,jdbcType=INTEGER}, #{女性人口总数,jdbcType=INTEGER}, 
+      #{男女比例,jdbcType=REAL}, #{家庭户人口数,jdbcType=INTEGER}, #{家庭户男性人口总数,jdbcType=INTEGER}, 
+      #{家庭户女性人口总数,jdbcType=INTEGER}, #{家庭户男女比例,jdbcType=REAL}, #{集体户人口数,jdbcType=INTEGER}, 
+      #{集体户男性人口总数,jdbcType=INTEGER}, #{集体户女性人口总数,jdbcType=INTEGER}, #{集体户男女比例,jdbcType=REAL}, 
+      #{平均家庭户规模人每户,jdbcType=REAL}, #{家庭户女性人口数,jdbcType=INTEGER}, #{家庭户男性人口数,jdbcType=INTEGER}, 
+      #{集体户女性人口数,jdbcType=INTEGER}, #{集体户男性人口数,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" keyColumn="编号" keyProperty="编号" parameterType="com.ydl.entity.DemographicData"
+            useGeneratedKeys="true">
+        insert into 人口数据.玉林市六普村级户数人口数和性别比总计表
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="城市名 != null">
+                城市名,
+            </if>
+            <if test="区县名 != null">
+                区县名,
+            </if>
+            <if test="乡镇名 != null">
+                乡镇名,
+            </if>
+            <if test="行政村 != null">
+                行政村,
+            </if>
+            <if test="总户数 != null">
+                总户数,
+            </if>
+            <if test="家庭户数 != null">
+                家庭户数,
+            </if>
+            <if test="集体户数 != null">
+                集体户数,
+            </if>
+            <if test="人口总数 != null">
+                人口总数,
+            </if>
+            <if test="男性人口总数 != null">
+                男性人口总数,
+            </if>
+            <if test="女性人口总数 != null">
+                女性人口总数,
+            </if>
+            <if test="男女比例 != null">
+                男女比例,
+            </if>
+            <if test="家庭户人口数 != null">
+                家庭户人口数,
+            </if>
+            <if test="家庭户男性人口总数 != null">
+                家庭户男性人口总数,
+            </if>
+            <if test="家庭户女性人口总数 != null">
+                家庭户女性人口总数,
+            </if>
+            <if test="家庭户男女比例 != null">
+                家庭户男女比例,
+            </if>
+            <if test="集体户人口数 != null">
+                集体户人口数,
+            </if>
+            <if test="集体户男性人口总数 != null">
+                集体户男性人口总数,
+            </if>
+            <if test="集体户女性人口总数 != null">
+                集体户女性人口总数,
+            </if>
+            <if test="集体户男女比例 != null">
+                集体户男女比例,
+            </if>
+            <if test="平均家庭户规模人每户 != null">
+                平均家庭户规模_人每户,
+            </if>
+            <if test="家庭户女性人口数 != null">
+                家庭户女性人口数,
+            </if>
+            <if test="家庭户男性人口数 != null">
+                家庭户男性人口数,
+            </if>
+            <if test="集体户女性人口数 != null">
+                集体户女性人口数,
+            </if>
+            <if test="集体户男性人口数 != null">
+                集体户男性人口数,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="城市名 != null">
+                #{城市名,jdbcType=VARCHAR},
+            </if>
+            <if test="区县名 != null">
+                #{区县名,jdbcType=VARCHAR},
+            </if>
+            <if test="乡镇名 != null">
+                #{乡镇名,jdbcType=VARCHAR},
+            </if>
+            <if test="行政村 != null">
+                #{行政村,jdbcType=VARCHAR},
+            </if>
+            <if test="总户数 != null">
+                #{总户数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户数 != null">
+                #{家庭户数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户数 != null">
+                #{集体户数,jdbcType=INTEGER},
+            </if>
+            <if test="人口总数 != null">
+                #{人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="男性人口总数 != null">
+                #{男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="女性人口总数 != null">
+                #{女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="男女比例 != null">
+                #{男女比例,jdbcType=REAL},
+            </if>
+            <if test="家庭户人口数 != null">
+                #{家庭户人口数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男性人口总数 != null">
+                #{家庭户男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户女性人口总数 != null">
+                #{家庭户女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男女比例 != null">
+                #{家庭户男女比例,jdbcType=REAL},
+            </if>
+            <if test="集体户人口数 != null">
+                #{集体户人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男性人口总数 != null">
+                #{集体户男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户女性人口总数 != null">
+                #{集体户女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男女比例 != null">
+                #{集体户男女比例,jdbcType=REAL},
+            </if>
+            <if test="平均家庭户规模人每户 != null">
+                #{平均家庭户规模人每户,jdbcType=REAL},
+            </if>
+            <if test="家庭户女性人口数 != null">
+                #{家庭户女性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男性人口数 != null">
+                #{家庭户男性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户女性人口数 != null">
+                #{集体户女性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男性人口数 != null">
+                #{集体户男性人口数,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ydl.entity.DemographicData">
+        update 人口数据.玉林市六普村级户数人口数和性别比总计表
+        <set>
+            <if test="城市名 != null">
+                城市名 = #{城市名,jdbcType=VARCHAR},
+            </if>
+            <if test="区县名 != null">
+                区县名 = #{区县名,jdbcType=VARCHAR},
+            </if>
+            <if test="乡镇名 != null">
+                乡镇名 = #{乡镇名,jdbcType=VARCHAR},
+            </if>
+            <if test="行政村 != null">
+                行政村 = #{行政村,jdbcType=VARCHAR},
+            </if>
+            <if test="总户数 != null">
+                总户数 = #{总户数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户数 != null">
+                家庭户数 = #{家庭户数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户数 != null">
+                集体户数 = #{集体户数,jdbcType=INTEGER},
+            </if>
+            <if test="人口总数 != null">
+                人口总数 = #{人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="男性人口总数 != null">
+                男性人口总数 = #{男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="女性人口总数 != null">
+                女性人口总数 = #{女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="男女比例 != null">
+                男女比例 = #{男女比例,jdbcType=REAL},
+            </if>
+            <if test="家庭户人口数 != null">
+                家庭户人口数 = #{家庭户人口数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男性人口总数 != null">
+                家庭户男性人口总数 = #{家庭户男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户女性人口总数 != null">
+                家庭户女性人口总数 = #{家庭户女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男女比例 != null">
+                家庭户男女比例 = #{家庭户男女比例,jdbcType=REAL},
+            </if>
+            <if test="集体户人口数 != null">
+                集体户人口数 = #{集体户人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男性人口总数 != null">
+                集体户男性人口总数 = #{集体户男性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户女性人口总数 != null">
+                集体户女性人口总数 = #{集体户女性人口总数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男女比例 != null">
+                集体户男女比例 = #{集体户男女比例,jdbcType=REAL},
+            </if>
+            <if test="平均家庭户规模人每户 != null">
+                平均家庭户规模_人每户 = #{平均家庭户规模人每户,jdbcType=REAL},
+            </if>
+            <if test="家庭户女性人口数 != null">
+                家庭户女性人口数 = #{家庭户女性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="家庭户男性人口数 != null">
+                家庭户男性人口数 = #{家庭户男性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户女性人口数 != null">
+                集体户女性人口数 = #{集体户女性人口数,jdbcType=INTEGER},
+            </if>
+            <if test="集体户男性人口数 != null">
+                集体户男性人口数 = #{集体户男性人口数,jdbcType=INTEGER},
+            </if>
+        </set>
+        where 编号 = #{编号,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ydl.entity.DemographicData">
+    update 人口数据.玉林市六普村级户数人口数和性别比总计表
+    set 城市名 = #{城市名,jdbcType=VARCHAR},
+      区县名 = #{区县名,jdbcType=VARCHAR},
+      乡镇名 = #{乡镇名,jdbcType=VARCHAR},
+      行政村 = #{行政村,jdbcType=VARCHAR},
+      总户数 = #{总户数,jdbcType=INTEGER},
+      家庭户数 = #{家庭户数,jdbcType=INTEGER},
+      集体户数 = #{集体户数,jdbcType=INTEGER},
+      人口总数 = #{人口总数,jdbcType=INTEGER},
+      男性人口总数 = #{男性人口总数,jdbcType=INTEGER},
+      女性人口总数 = #{女性人口总数,jdbcType=INTEGER},
+      男女比例 = #{男女比例,jdbcType=REAL},
+      家庭户人口数 = #{家庭户人口数,jdbcType=INTEGER},
+      家庭户男性人口总数 = #{家庭户男性人口总数,jdbcType=INTEGER},
+      家庭户女性人口总数 = #{家庭户女性人口总数,jdbcType=INTEGER},
+      家庭户男女比例 = #{家庭户男女比例,jdbcType=REAL},
+      集体户人口数 = #{集体户人口数,jdbcType=INTEGER},
+      集体户男性人口总数 = #{集体户男性人口总数,jdbcType=INTEGER},
+      集体户女性人口总数 = #{集体户女性人口总数,jdbcType=INTEGER},
+      集体户男女比例 = #{集体户男女比例,jdbcType=REAL},
+      平均家庭户规模_人每户 = #{平均家庭户规模人每户,jdbcType=REAL},
+      家庭户女性人口数 = #{家庭户女性人口数,jdbcType=INTEGER},
+      家庭户男性人口数 = #{家庭户男性人口数,jdbcType=INTEGER},
+      集体户女性人口数 = #{集体户女性人口数,jdbcType=INTEGER},
+      集体户男性人口数 = #{集体户男性人口数,jdbcType=INTEGER}
+    where 编号 = #{编号,jdbcType=INTEGER}
+  </update>
+
+</mapper>

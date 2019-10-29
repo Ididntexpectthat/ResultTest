@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydl.mapper.FunctionMapper">
+  <resultMap id="BaseResultMap" type="com.ydl.entity.Function">
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="fun1" jdbcType="VARCHAR" property="fun1" />
+    <result column="fun2" jdbcType="VARCHAR" property="fun2" />
+    <result column="fun3" jdbcType="VARCHAR" property="fun3" />
+    <result column="fun4" jdbcType="VARCHAR" property="fun4" />
+    <result column="fun5" jdbcType="VARCHAR" property="fun5" />
+    <result column="fun6" jdbcType="VARCHAR" property="fun6" />
+    <result column="fun7" jdbcType="VARCHAR" property="fun7" />
+    <result column="fun8" jdbcType="VARCHAR" property="fun8" />
+    <result column="fun9" jdbcType="VARCHAR" property="fun9" />
+    <result column="fun10" jdbcType="VARCHAR" property="fun10" />
+  </resultMap>
+<!--  <insert id="insert" keyColumn="username" keyProperty="username" parameterType="com.ydl.entity.Function" useGeneratedKeys="true">-->
+<!--    insert into user_functions (fun1, fun2, fun3, -->
+<!--      fun4, fun5, fun6, fun7, -->
+<!--      fun8, fun9, fun10)-->
+<!--    values (#{fun1,jdbcType=VARCHAR}, #{fun2,jdbcType=VARCHAR}, #{fun3,jdbcType=VARCHAR}, -->
+<!--      #{fun4,jdbcType=VARCHAR}, #{fun5,jdbcType=VARCHAR}, #{fun6,jdbcType=VARCHAR}, #{fun7,jdbcType=VARCHAR}, -->
+<!--      #{fun8,jdbcType=VARCHAR}, #{fun9,jdbcType=VARCHAR}, #{fun10,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+  <insert id="insertAllByUsernameSelective" keyColumn="username" keyProperty="username" parameterType="com.ydl.entity.Function" useGeneratedKeys="true">
+    insert into user_functions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fun1 != null">
+        fun1,
+      </if>
+      <if test="fun2 != null">
+        fun2,
+      </if>
+      <if test="fun3 != null">
+        fun3,
+      </if>
+      <if test="fun4 != null">
+        fun4,
+      </if>
+      <if test="fun5 != null">
+        fun5,
+      </if>
+      <if test="fun6 != null">
+        fun6,
+      </if>
+      <if test="fun7 != null">
+        fun7,
+      </if>
+      <if test="fun8 != null">
+        fun8,
+      </if>
+      <if test="fun9 != null">
+        fun9,
+      </if>
+      <if test="fun10 != null">
+        fun10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fun1 != null">
+        #{fun1,jdbcType=VARCHAR},
+      </if>
+      <if test="fun2 != null">
+        #{fun2,jdbcType=VARCHAR},
+      </if>
+      <if test="fun3 != null">
+        #{fun3,jdbcType=VARCHAR},
+      </if>
+      <if test="fun4 != null">
+        #{fun4,jdbcType=VARCHAR},
+      </if>
+      <if test="fun5 != null">
+        #{fun5,jdbcType=VARCHAR},
+      </if>
+      <if test="fun6 != null">
+        #{fun6,jdbcType=VARCHAR},
+      </if>
+      <if test="fun7 != null">
+        #{fun7,jdbcType=VARCHAR},
+      </if>
+      <if test="fun8 != null">
+        #{fun8,jdbcType=VARCHAR},
+      </if>
+      <if test="fun9 != null">
+        #{fun9,jdbcType=VARCHAR},
+      </if>
+      <if test="fun10 != null">
+        #{fun10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <select id="findFunctionsByUsername" resultType="com.ydl.entity.Function">
+    SELECT * from user_functions WHERE username = #{username}
+    </select>
+    <select id="existsByusername" resultType="Boolean">
+        SELECT exists(SELECT * FROM txuser WHERE username = #{username})
+    </select>
+    <insert id="insertAllByUsername">
+        insert  into user_functions(username,fun1,fun2,fun3,fun4,fun5,fun6,fun7,fun8,fun9,fun10) values (#{username},#{fun1},#{fun2}, #{fun3}, #{fun4}, #{fun5},#{fun6},#{fun7},#{fun8},#{fun9},#{fun10})
+    </insert>
+    <update id="updateFuncByName">
+    update user_functions set fun1 = #{fun1},fun2 = #{fun2},fun3 = #{fun3},fun4 = #{fun4},fun5 = #{fun5},
+                              fun6 = #{fun6},fun7 = #{fun7},fun8 = #{fun8},fun9 = #{fun9},fun10 = #{fun10}
+                            where username = #{username}
+    </update>
+  <update id="updateFuncByNameSelective" parameterType="com.ydl.entity.Function">
+    update user_functions
+    <set>
+<!--      &lt;if test="username != null"&gt;-->
+<!--        #{username,jdbcType=VARCHAR},-->
+<!--      &lt;/if&gt;-->
+      <if test="fun1 != null">
+        fun1 = #{fun1,jdbcType=VARCHAR},
+      </if>
+      <if test="fun2 != null">
+        fun2 = #{fun2,jdbcType=VARCHAR},
+      </if>
+      <if test="fun3 != null">
+        fun3 =  #{fun3,jdbcType=VARCHAR},
+      </if>
+      <if test="fun4 != null">
+        fun4 =  #{fun4,jdbcType=VARCHAR},
+      </if>
+      <if test="fun5 != null">
+        fun5 =  #{fun5,jdbcType=VARCHAR},
+      </if>
+      <if test="fun6 != null">
+        fun6 = #{fun6,jdbcType=VARCHAR},
+      </if>
+      <if test="fun7 != null">
+        fun7 =  #{fun7,jdbcType=VARCHAR},
+      </if>
+      <if test="fun8 != null">
+        fun8 =  #{fun8,jdbcType=VARCHAR},
+      </if>
+      <if test="fun9 != null">
+        fun9 =  #{fun9,jdbcType=VARCHAR},
+      </if>
+      <if test="fun10 != null">
+        fun10 =  #{fun10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+    <delete id="deleteFunctionByusername">
+        delete from user_functions where username = #{username}
+    </delete>
+    <delete id="deleteFunctionByDepartment">
+        delete from user_functions where username = any(
+         SELECT username FROM txuser where department=#{department})
+    </delete>
+</mapper>

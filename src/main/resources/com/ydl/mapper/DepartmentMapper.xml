@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ydl.mapper.DepartmentMapper">
+
+
+    <insert id="insertDepartment">
+        insert into txdepartment(department)
+        values(#{department})
+    </insert>
+
+
+    <delete id="deleteDepartmentByDepartment">
+        DELETE  from txdepartment WHERE department = #{department}
+    </delete>
+
+
+    <update id="updateDepartment">
+        update txdepartment set
+        department = #{department}
+        where  department = #{olddepartment}
+    </update>
+
+
+    <select id="findAllBydepartment" resultType="com.ydl.entity.Department">
+        select * from  txdepartment
+        where department = #{department}
+    </select>
+
+    <select id="getAllDepartment" resultType="com.ydl.entity.Department">
+        select * from  txdepartment
+        where department is not null
+    </select>
+
+
+
+
+
+
+
+</mapper>

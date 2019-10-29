@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydl.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.ydl.entity.User">
+    <id column="username" jdbcType="VARCHAR" property="username" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="lastlogintime" jdbcType="VARCHAR" property="lastlogintime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    username, id, password, department, gender, tel, lastlogintime, remarks, pic_url
+  </sql>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from txuser-->
+<!--    where username = #{username,jdbcType=VARCHAR}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+<!--    delete from txuser-->
+<!--    where username = #{username,jdbcType=VARCHAR}-->
+<!--  </delete>-->
+<!--  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ydl.entity.User" useGeneratedKeys="true">-->
+<!--    insert into txuser (username, password, department, -->
+<!--      gender, tel, lastlogintime, -->
+<!--      remarks, pic_url)-->
+<!--    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, -->
+<!--      #{gender,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=VARCHAR}, -->
+<!--      #{remarks,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+  <insert id="insertUserSelective" keyColumn="id" keyProperty="id" parameterType="com.ydl.entity.User" useGeneratedKeys="true">
+    insert into txuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="lastlogintime != null">
+        lastlogintime,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByUsernameKeySelective" parameterType="com.ydl.entity.User">
+    update txuser
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        lastlogintime = #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where username = #{oldusername,jdbcType=VARCHAR}
+  </update>
+<!--  <update id="updateByUsername" parameterType="com.ydl.entity.User">-->
+<!--    update txuser-->
+<!--    set id = #{id,jdbcType=INTEGER},-->
+<!--      password = #{password,jdbcType=VARCHAR},-->
+<!--      department = #{department,jdbcType=VARCHAR},-->
+<!--      gender = #{gender,jdbcType=VARCHAR},-->
+<!--      tel = #{tel,jdbcType=VARCHAR},-->
+<!--      lastlogintime = #{lastlogintime,jdbcType=VARCHAR},-->
+<!--      remarks = #{remarks,jdbcType=VARCHAR},-->
+<!--      pic_url = #{picUrl,jdbcType=VARCHAR}-->
+<!--    where username = #{username,jdbcType=VARCHAR}-->
+<!--  </update>-->
+    <select id="login" resultType="com.ydl.entity.User">
+      SELECT * FROM txuser
+      where
+      username=#{username} and password=#{password}
+    </select>
+    <select id="findByUsername" resultType="com.ydl.entity.User">
+      SELECT * FROM txuser
+      where
+      username=#{username}
+    </select>
+
+    <select id="findUserById" resultType="com.ydl.entity.User">
+      SELECT * FROM txuser
+      where
+      id=#{id}
+    </select>
+
+    <select id="findAllByOrderById" resultType="com.ydl.entity.User">
+        SELECT * FROM txuser order by id
+    </select>
+
+    <select id="queryByDepartmentOrderById" resultType="com.ydl.entity.User">
+      SELECT * FROM txuser
+      where
+      department=#{department} order by id
+    </select>
+
+<!--    &lt;select id="countAllUser" resultType="String"&gt;-->
+<!--      SELECT count(*) FROM txuser-->
+<!--      where-->
+<!--      username is not null-->
+<!--    &lt;/select&gt;-->
+
+<!--    &lt;select id="countUserByDepartment" resultType="String"&gt;-->
+<!--      SELECT count(*) FROM txuser-->
+<!--      where-->
+<!--       department=#{department}-->
+<!--    &lt;/select&gt;-->
+
+
+    <insert id="insertUser">
+        insert into txuser(username,password,department,gender,tel)
+        values(#{username},#{password},#{department},#{gender},#{tel})
+    </insert>
+
+    <update id="updateLastLoginTime">
+        update txuser set
+        lastlogintime = #{lastlogintime}
+        where  username = #{username}
+    </update>
+
+    <update id="updateUserByName">
+        update txuser set
+        username = #{username},password = #{password},department = #{department},gender= #{gender},tel= #{tel},remarks= #{remarks}
+        where  username = #{oldusername}
+    </update>
+
+    <update id="updateDepartmentByDepartment">
+        update txuser set
+        department = #{department}
+        where  username = any(select username from txuser where department = #{olddepartment})
+    </update>
+
+  <update id="updatePicUrl">
+    update txuser set  pic_url = #{pic_url} where  username = #{username}
+  </update>
+
+    <delete id="deleteUserByUsername">
+        DELETE  from txuser WHERE username = #{username}
+    </delete>
+
+    <delete id="deleteUserByDepartment">
+        DELETE  from txuser WHERE department = #{department}
+    </delete>
+
+    <select id="fuzzyQueryOrderById" resultType="com.ydl.entity.User">
+      SELECT * FROM txuser
+      where
+      username like concat('%',#{keyword},'%') or
+      tel like concat('%',#{keyword},'%') or
+      remarks like concat('%',#{keyword},'%') order by id
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ydl.mapper.CaptchaMapper">
+    <insert id="add">
+      insert into captcha(ctoken, captcha)
+      values(#{ctoken}, #{captcha})
+    </insert>
+    <select id="findByCtoken" resultType="com.ydl.entity.Captcha">
+       select * FROM captcha
+       where ctoken=#{ctoken}
+    </select>
+    <select id="Verification" resultType="com.ydl.entity.Captcha">
+       select * FROM captcha
+       where ctoken=#{ctoken} and captcha=#{captcha}
+    </select>
+    <delete id="DeleteCaptchaByCtoken">
+        delete from captcha
+        where ctoken=#{ctoken}
+    </delete>
+</mapper>
