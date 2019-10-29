@@ -32,6 +32,7 @@ public class MyConfiguration implements WebMvcConfigurer  {
             // 是否允许携带 cookie
             .allowCredentials(true)
             .maxAge(1800);
+    // test
    }
 
   };
