@@ -23,7 +23,7 @@ import java.util.Objects;
 
 @RestController
 @UserLoginToken
-@RequestMapping("admin")
+@RequestMapping("Admin")
 public class AdminApi {
 
     @Autowired

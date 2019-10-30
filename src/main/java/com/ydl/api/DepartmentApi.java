@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("department")
+@RequestMapping("Department")
 public class DepartmentApi {
     @Autowired
     DepartmentService departmentService;

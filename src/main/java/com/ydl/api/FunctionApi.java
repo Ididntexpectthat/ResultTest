@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("function")
+@RequestMapping("Function")
 public class FunctionApi {
 
     @Autowired

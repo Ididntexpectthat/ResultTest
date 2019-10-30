@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/captcha")
+@RequestMapping("/Captcha")
 public class CaptchaApi {
     @Autowired
     private DefaultKaptcha producer;

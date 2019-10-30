@@ -36,7 +36,7 @@ import java.util.*;
  * @date 2018-07-08 20:45
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("User")
 
 public class UserApi {
     @Autowired
