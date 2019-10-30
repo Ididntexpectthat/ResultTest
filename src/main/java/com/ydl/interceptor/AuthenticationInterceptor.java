@@ -37,6 +37,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     StringRedisTemplate redisTemplate;
     @Autowired
     TokenService tokenService;
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
@@ -62,34 +63,30 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
                 if (StringUtils.isEmpty(token)) {
-                    return false;
-//                    throw new RuntimeException("token不能为空，请输入token进行验证！");
+//                    return false;
+                    throw new RuntimeException("token不能为空，请输入token进行验证！");
                 }
-                if (StringUtils.isEmpty(token)) {
-                    return  false;
-//                    throw new RuntimeException("header中的username为空！");
+                if (StringUtils.isEmpty(username)) {
+//                    return  false;
+                    throw new RuntimeException("username，请输入username进行验证！");
                 }
                 // 执行认证
                 System.out.println("token" + token);
-                try {
+
 //                    long time = redisTemplate.getExpire(username);
-                    String redistoken = redisTemplate.opsForValue().get(username);
-                    System.out.println("redistoken:" + redistoken);
-//                    System.out.println(StringUtils.isEmpty(redistoken));
-//                    System.out.println(!redistoken.equals(redistoken));
-                    System.out.println(StringUtils.isEmpty(redistoken) || !redistoken.equals(token));
-                    if(StringUtils.isEmpty(redistoken) || !redistoken.equals(token)){
-                        System.out.println("登录失效，请重新登录！");
-                        return  false;
-                    }
+                String redistoken = redisTemplate.opsForValue().get(username);
+                System.out.println("redistoken:" + redistoken);
+                System.out.println(StringUtils.isEmpty(redistoken) || !redistoken.equals(token));
+                if (StringUtils.isEmpty(redistoken) || !redistoken.equals(token)) {
+                    System.out.println("登录失效，请重新登录！");
+                    throw new RuntimeException("登录失效，请重新登录！");
+                }
+                try {
                     if (!StringUtils.isEmpty(redistoken) && redistoken.equals(token)) {
 //                        String Newtoken = UUID.randomUUID().toString().replaceAll("-", "");
-                        tokenService.redisSaveToken(username, redistoken,30);
+                        tokenService.redisSaveToken(username, redistoken, 30);
                         System.out.println("校验成功");
                         return true;
-                    } else {
-                       return false;
-//                        return false;
                     }
                 } catch (Exception e) {
 //                    return false;

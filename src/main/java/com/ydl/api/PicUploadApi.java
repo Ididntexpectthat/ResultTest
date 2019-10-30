@@ -1,6 +1,7 @@
 package com.ydl.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ydl.annotation.UserLoginToken;
 import com.ydl.entity.PicUploadResult;
 import com.ydl.service.PicUploadFileSystemService;
 import com.ydl.service.UserService;
@@ -24,7 +25,7 @@ public class PicUploadApi {
     @Autowired
     UserService userService;
 
-
+    @UserLoginToken
     @PostMapping("/upload")
     public Object upload(@RequestParam("file") MultipartFile uploadFile, @RequestParam("username") String username) throws Exception {
         JSONObject jsonObject = new JSONObject();
