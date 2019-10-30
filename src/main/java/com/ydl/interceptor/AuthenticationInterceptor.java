@@ -1,5 +1,6 @@
 package com.ydl.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,6 +13,8 @@ import com.ydl.service.TokenService;
 import com.ydl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -38,6 +41,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
         String username = httpServletRequest.getHeader("username");
+        JSONObject jsonObject = new JSONObject();
+        System.out.println(username);
         // 如果不是映射到方法直接通过
 
         if (!(object instanceof HandlerMethod)) {
@@ -57,19 +62,25 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
                 if (StringUtils.isEmpty(token)) {
-                    throw new RuntimeException("token不能为空，请输入token进行验证！");
+                    return false;
+//                    throw new RuntimeException("token不能为空，请输入token进行验证！");
                 }
                 if (StringUtils.isEmpty(token)) {
-                    throw new RuntimeException("header中的username为空！");
+                    return  false;
+//                    throw new RuntimeException("header中的username为空！");
                 }
                 // 执行认证
                 System.out.println("token" + token);
                 try {
 //                    long time = redisTemplate.getExpire(username);
                     String redistoken = redisTemplate.opsForValue().get(username);
-                    System.out.println("retoken:" + redistoken);
+                    System.out.println("redistoken:" + redistoken);
+//                    System.out.println(StringUtils.isEmpty(redistoken));
+//                    System.out.println(!redistoken.equals(redistoken));
+                    System.out.println(StringUtils.isEmpty(redistoken) || !redistoken.equals(token));
                     if(StringUtils.isEmpty(redistoken) || !redistoken.equals(token)){
-                        throw new RuntimeException("登录失效，请重新登录！");
+                        System.out.println("登录失效，请重新登录！");
+                        return  false;
                     }
                     if (!StringUtils.isEmpty(redistoken) && redistoken.equals(token)) {
 //                        String Newtoken = UUID.randomUUID().toString().replaceAll("-", "");
@@ -77,7 +88,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                         System.out.println("校验成功");
                         return true;
                     } else {
-                        throw new RuntimeException("校验失败，登录失效，请重新登录！");
+                       return false;
 //                        return false;
                     }
                 } catch (Exception e) {

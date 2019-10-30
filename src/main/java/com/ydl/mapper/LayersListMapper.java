@@ -10,4 +10,13 @@ public interface LayersListMapper {
     List<LayersList> findAllByOrderById();
 
 
+    LayersList selectByName(LayersList layersList);
+
+    void insertSelective(LayersList layersList);
+
+    void updateByNameSelective(LayersList oldLayersList, LayersList layersList);
+
+    void updateUpdateTime(String updatetime, String name);
+
+    void updateModifyTime(String modifytime, String name);
 }

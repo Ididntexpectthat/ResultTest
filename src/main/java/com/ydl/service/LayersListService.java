@@ -11,4 +11,14 @@ public interface LayersListService {
      * @return
      */
     List<LayersList> getAllLayerList();
+
+    LayersList selectByName(LayersList layersList);
+
+    void insertSelective(LayersList layersList);
+
+    void updateByNameSelective(LayersList oldLayersList,LayersList newLayersList);
+
+    void updateUpdateTime(String updateTime,String name);
+
+    void updateModifyTime(String modifyTime,String name);
 }

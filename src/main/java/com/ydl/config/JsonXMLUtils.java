@@ -3,6 +3,7 @@ package com.ydl.config;
 import com.alibaba.fastjson.JSON;
 import com.ydl.entity.Captcha;
 import com.ydl.entity.Department;
+import com.ydl.entity.LayersList;
 import com.ydl.entity.User;
 
 import java.util.Map;
@@ -32,5 +33,8 @@ public class JsonXMLUtils {
     }
     public static Department map2Department(Map<String, Object> department, Class<Department> DepartmentClass) {
         return JSON.parseObject(JSON.toJSONString(department), DepartmentClass);
+    }
+    public static LayersList map2LayersList(Map<String, Object> layerslist, Class<LayersList> LayersListClass) {
+        return JSON.parseObject(JSON.toJSONString(layerslist), LayersListClass);
     }
 }

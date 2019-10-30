@@ -45,7 +45,7 @@ public interface UserMapper {
 
     void updateUserByName(String oldusername, String username, String password, String department, String gender, String tel, String remarks);
 
-    void updateByUsernameSelective(User record,String oldusername);
+    void updateByUsernameSelective(String oldusername,User record);
 
     void updateDepartmentByDepartment(@Param("olddepartment") String oldDepartment,@Param("department") String department);
 

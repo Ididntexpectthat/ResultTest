@@ -1,10 +1,184 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ydl.mapper.LayersListMapper">
+    <resultMap id="BaseResultMap" type="com.ydl.entity.LayersList">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <id column="name" jdbcType="VARCHAR" property="name" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="copyright" jdbcType="VARCHAR" property="copyright" />
+        <result column="key_value" jdbcType="VARCHAR" property="keyValue" />
+        <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
+        <result column="modifytime" jdbcType="VARCHAR" property="modifytime" />
+        <result column="group" jdbcType="VARCHAR" property="group" />
+        <result column="childgroup" jdbcType="VARCHAR" property="childgroup" />
+        <result column="datatype" jdbcType="VARCHAR" property="datatype" />
+        <result column="datasources" jdbcType="VARCHAR" property="datasources" />
+        <result column="dataaging" jdbcType="VARCHAR" property="dataaging" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, url, type, copyright, key_value, updatetime, modifytime, group, childgroup,
+    datatype, datasources, dataaging, remarks
+  </sql>
     <select id="findAllByOrderById" resultType="com.ydl.entity.LayersList">
         SELECT * FROM layersList order by id
     </select>
 <!--    <select id="countLayers" resultType="String">-->
 <!--        SELECT count(*) FROM layersList order by id-->
 <!--    </select>-->
+    <select id="selectByName" parameterType="com.ydl.entity.LayersList" resultType="com.ydl.entity.LayersList">
+        select
+        *
+        from layerslist
+        where name = #{name,jdbcType=VARCHAR}
+    </select>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ydl.entity.LayersList" useGeneratedKeys="true">
+    insert into layerslist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="name != null">
+            name,
+        </if>
+        <if test="url != null">
+            url,
+        </if>
+        <if test="type != null">
+            type,
+        </if>
+        <if test="copyright != null">
+            copyright,
+        </if>
+        <if test="keyValue != null">
+            key_value,
+        </if>
+        <if test="updatetime != null">
+            updatetime,
+        </if>
+        <if test="modifytime != null">
+            modifytime,
+        </if>
+        <if test="group != null">
+            group,
+        </if>
+        <if test="childgroup != null">
+            childgroup,
+        </if>
+        <if test="datatype != null">
+            datatype,
+        </if>
+        <if test="datasources != null">
+            datasources,
+        </if>
+        <if test="dataaging != null">
+            dataaging,
+        </if>
+        <if test="remarks != null">
+            remarks,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="name != null">
+            #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="url != null">
+            #{url,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null">
+            #{type,jdbcType=VARCHAR},
+        </if>
+        <if test="copyright != null">
+            #{copyright,jdbcType=VARCHAR},
+        </if>
+        <if test="keyValue != null">
+            #{keyValue,jdbcType=VARCHAR},
+        </if>
+        <if test="updatetime != null">
+            #{updatetime,jdbcType=VARCHAR},
+        </if>
+        <if test="modifytime != null">
+            #{modifytime,jdbcType=VARCHAR},
+        </if>
+        <if test="group != null">
+            #{group,jdbcType=VARCHAR},
+        </if>
+        <if test="childgroup != null">
+            #{childgroup,jdbcType=VARCHAR},
+        </if>
+        <if test="datatype != null">
+            #{datatype,jdbcType=VARCHAR},
+        </if>
+        <if test="datasources != null">
+            #{datasources,jdbcType=VARCHAR},
+        </if>
+        <if test="dataaging != null">
+            #{dataaging,jdbcType=VARCHAR},
+        </if>
+        <if test="remarks != null">
+            #{remarks,jdbcType=VARCHAR},
+        </if>
+    </trim>
+    </insert>
+    <update id="updateByNameSelective" parameterType="com.ydl.entity.LayersList">
+        update layerslist
+        <set>
+            <if test="param2.name != null">
+                name = #{param2.name,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.url != null">
+                url = #{param2.url,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.type != null">
+                type = #{param2.type,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.copyright != null">
+                copyright = #{param2.copyright,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.keyValue != null">
+                key_value = #{param2.keyValue,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.updatetime != null">
+                updatetime = #{param2.updatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.modifytime != null">
+                modifytime = #{param2.modifytime,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.group != null">
+                group = #{param2.group,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.childgroup != null">
+                childgroup = #{param2.childgroup,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.datatype != null">
+                datatype = #{param2.datatype,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.datasources != null">
+                datasources = #{param2.datasources,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.dataaging != null">
+                dataaging = #{param2.dataaging,jdbcType=VARCHAR},
+            </if>
+            <if test="param2.remarks != null">
+                remarks = #{param2.remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where  name = #{param1.name,jdbcType=VARCHAR}
+    </update>
+    <update id="updateUpdateTime">
+        update layerslist
+        <set>
+            <if test="updatetime != null">
+                updatetime = #{updatetime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where  name = #{name,jdbcType=VARCHAR}
+    </update>
+    <update id="updateModifyTime">
+        update layerslist
+        <set>
+            <if test="modifytime != null">
+                modifytime = #{modifytime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where  name = #{name,jdbcType=VARCHAR}
+    </update>
 </mapper>

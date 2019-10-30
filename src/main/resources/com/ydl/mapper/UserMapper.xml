@@ -88,35 +88,35 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByUsernameKeySelective" parameterType="com.ydl.entity.User">
+  <update id="updateByUsernameSelective" >
     update txuser
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=INTEGER},
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=INTEGER},
       </if>
-      <if test="id != null">
-        id = #{id,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="department != null">
-        department = #{department,jdbcType=VARCHAR},
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=VARCHAR},
       </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=VARCHAR},
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null">
-        tel = #{tel,jdbcType=VARCHAR},
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
       </if>
-      <if test="lastlogintime != null">
-        lastlogintime = #{lastlogintime,jdbcType=VARCHAR},
+      <if test="record.lastlogintime != null">
+        lastlogintime = #{record.lastlogintime,jdbcType=VARCHAR},
       </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
+      <if test="record.picUrl != null">
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where username = #{oldusername,jdbcType=VARCHAR}

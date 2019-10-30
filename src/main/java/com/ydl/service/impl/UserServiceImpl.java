@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateByUsernameSelective(User user1, User user2) {
-        userMapper.updateByUsernameSelective(user2,user1.getUsername());
+        userMapper.updateByUsernameSelective(user1.getUsername(),user2);
     }
 
     @Override

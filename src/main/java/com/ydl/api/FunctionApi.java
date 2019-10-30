@@ -6,9 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ydl.annotation.UserLoginToken;
 import com.ydl.entity.Function;
-import com.ydl.entity.LayersList;
 import com.ydl.service.FunctionService;
-import com.ydl.service.LayersListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,7 @@ public class FunctionApi {
 
     @Autowired
     FunctionService functionService;
-    @Autowired
-    LayersListService layersListService;
+
 
     //查询某个用户的权限
     @UserLoginToken
