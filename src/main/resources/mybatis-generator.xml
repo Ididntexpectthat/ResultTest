@@ -11,8 +11,8 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://139.155.33.105:2432/yldsj" userId="postgres" password="123456">
-<!--        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://10.250.0.120/yldsj" userId="postgres" password="1234">-->
+<!--        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://139.155.33.105:2432/yldsj" userId="postgres" password="123456">-->
+        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://10.250.0.120/yldsj" userId="postgres" password="1234">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

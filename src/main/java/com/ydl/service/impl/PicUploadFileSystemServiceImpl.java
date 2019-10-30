@@ -38,10 +38,10 @@ public class PicUploadFileSystemServiceImpl implements PicUploadFileSystemServic
         System.out.println("filepath:"+filePath);
         // 生成图片的绝对引用地址
         String picUrl = StringUtils.replace(StringUtils.substringAfter(filePath,
-                "F:\\code\\test-upload\\images"),
+                "D:\\code\\test-upload\\images"),
                 "\\", "/");
         System.out.println(StringUtils.substringAfter(filePath,
-                "F:/code/test-upload/images"));
+                "D:/code/test-upload/images"));
         //访问路径
         fileUploadResult.setName("localhost:8888/upload" + picUrl);
         File newFile = new File(filePath);
@@ -59,7 +59,7 @@ public class PicUploadFileSystemServiceImpl implements PicUploadFileSystemServic
         return fileUploadResult;
     }
     public String getFilePath(String sourceFileName,String username) {
-        String baseFolder = "F:\\code\\test-upload" + File.separator
+        String baseFolder = "D:\\code\\test-upload" + File.separator
                 + "images";
         System.out.println(File.separator);
         Date nowDate = new Date();

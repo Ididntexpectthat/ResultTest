@@ -26,29 +26,40 @@ public class LayersListApi {
     @Autowired
     LayersListService layersListService;
 
-    //分页获取图层
+//    //分页获取图层
+//    @UserLoginToken
+//    @PostMapping(value = "/getAllLayerList")
+//    public Object getAllLayerList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+//        String pagenum = httpServletRequest.getHeader("pagenum");
+//        if (StringUtils.isEmpty(pagenum)) {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("message", "页码不能为空！!");
+//            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
+//        }
+//        Page page = PageHelper.startPage(Integer.parseInt(pagenum), 10);
+//        List<LayersList> list = layersListService.getAllLayerList();
+//        PageInfo info = new PageInfo<>(page.getResult());
+//        String pageCount = info.getPages() + "";
+//        httpServletResponse.setHeader("pageCount", pageCount);
+//        return new ResponseEntity<List>(list, HttpStatus.OK);
+//    }
     @UserLoginToken
     @PostMapping(value = "/getAllLayerList")
     public Object getAllLayerList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        String pagenum = httpServletRequest.getHeader("pagenum");
-        if (StringUtils.isEmpty(pagenum)) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("message", "页码不能为空！!");
-            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
-        }
-        Page page = PageHelper.startPage(Integer.parseInt(pagenum), 10);
+//        String pagenum = httpServletRequest.getHeader("pagenum");
+//        if (StringUtils.isEmpty(pagenum)) {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("message", "页码不能为空！!");
+//            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
+//        }
+//        Page page = PageHelper.startPage(Integer.parseInt(pagenum), 10);
         List<LayersList> list = layersListService.getAllLayerList();
-        PageInfo info = new PageInfo<>(page.getResult());
-        String pageCount = info.getPages() + "";
-        httpServletResponse.setHeader("pageCount", pageCount);
+//        PageInfo info = new PageInfo<>(page.getResult());
+//        String pageCount = info.getPages() + "";
+//        httpServletResponse.setHeader("pageCount", pageCount);
         return new ResponseEntity<List>(list, HttpStatus.OK);
     }
-    @UserLoginToken
-    @PostMapping(value = "/getAll")
-    public Object getAll() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", "我进来了");
-        return new ResponseEntity(jsonObject, HttpStatus.OK);
-    }
+
 }

@@ -1,11 +1,11 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://139.155.33.105:2432/yldsj
-#    url: jdbc:postgresql://10.250.0.120/yldsj
+#    url: jdbc:postgresql://139.155.33.105:2432/yldsj
+    url: jdbc:postgresql://10.250.0.120/yldsj
     username: postgres
-    password: 123456
-#    password: 1234
+#    password: 123456
+    password: 1234
 
 
   jpa:

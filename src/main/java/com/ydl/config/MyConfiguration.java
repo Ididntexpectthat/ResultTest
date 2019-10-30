@@ -1,5 +1,6 @@
 package com.ydl.config;
 
+import org.geotools.xml.schema.All;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -25,13 +26,13 @@ public class MyConfiguration implements WebMvcConfigurer  {
             // 放行哪些原始域
             .allowedOrigins("*")
             // 放行哪些头部信息
-            .allowedHeaders("DNT,ctoken,pagenum,captcha,Authorization,Accept,Origin,Keep-Alive,User-Agent,X-Mx-ReqToken,X-Data-Type,X-Auth-Token,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range")
-            .exposedHeaders("ctoken,captcha,*")
+            .allowedHeaders("*")
+            .exposedHeaders("ctoken,captcha,pagenum,*")
             // 放行哪些请求方式
             .allowedMethods("*")
             // 是否允许携带 cookie
             .allowCredentials(true)
-            .maxAge(1800);
+            .maxAge(3600);
     // test
    }
 
@@ -43,7 +44,7 @@ public class MyConfiguration implements WebMvcConfigurer  {
   */
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-   registry.addResourceHandler("/upload/**").addResourceLocations("file:F:/code/test-upload/images/");
+   registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/code/test-upload/images/");
 //   super.addResourceHandler(registry);
   }
 
