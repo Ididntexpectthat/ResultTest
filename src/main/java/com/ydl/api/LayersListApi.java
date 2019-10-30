@@ -7,7 +7,6 @@ import com.github.pagehelper.PageInfo;
 import com.ydl.annotation.UserLoginToken;
 import com.ydl.config.JsonXMLUtils;
 import com.ydl.entity.LayersList;
-import com.ydl.entity.User;
 import com.ydl.service.LayersListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -103,8 +102,20 @@ public class LayersListApi {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         String modifytime = dateFormat.format(date);
         System.out.println(modifytime);
-        layersListService.updateUpdateTime(modifytime, newLayersList.getName());
+        layersListService.updateModifyTime(modifytime, newLayersList.getName());
         jsonObject.put("message", "修改成功");
+        return new ResponseEntity(jsonObject, HttpStatus.OK);
+
+    }
+
+    @UserLoginToken
+    @PostMapping(value = "/deleteLayersByName")
+    public Object deleteLayersByName(@RequestBody LayersList layersList) {
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+
+        JSONObject jsonObject = new JSONObject();
+        layersListService.deleteLayersByName(layersList);
+        jsonObject.put("message", "删除成功");
         return new ResponseEntity(jsonObject, HttpStatus.OK);
 
     }

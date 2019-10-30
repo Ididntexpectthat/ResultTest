@@ -43,5 +43,10 @@ public class LayersListServiceImpl implements LayersListService {
         layersListMapper.updateModifyTime(modifyTime,name);
     }
 
+    @Override
+    public void deleteLayersByName(LayersList layersList) {
+        layersListMapper.deleteLayersByName(layersList);
+    }
+
 
 }

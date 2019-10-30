@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ydl</groupId>
-    <artifactId>kaptcha_jwt2</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>NewName</artifactId>
+    <version>11</version>
     <name>kaptcha_jwt2</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>

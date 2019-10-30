@@ -25,7 +25,6 @@ public class PicUploadApi {
     @Autowired
     UserService userService;
 
-    @UserLoginToken
     @PostMapping("/upload")
     public Object upload(@RequestParam("file") MultipartFile uploadFile, @RequestParam("username") String username) throws Exception {
         JSONObject jsonObject = new JSONObject();

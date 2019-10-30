@@ -372,31 +372,5 @@ public class UserApi {
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
     }
-    @UserLoginToken
-    @PostMapping(value = "/getLayers")
-    public Object getLayers(@RequestBody User user, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        String pagenum = httpServletRequest.getHeader("pagenum");
-        if (StringUtils.isEmpty(pagenum)) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("message", "页码不能为空！!");
-            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
-        }
-        JSONObject jsonObject = new JSONObject();
-        if (StringUtils.isEmpty(user.getDepartment())) {
-            jsonObject.put("message", "部门不能为空！");
-            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
-        }
-        if (Objects.isNull(pagenum)) {
-            jsonObject.put("message", "页码不能为空！");
-            return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
-        }
-        Page page = PageHelper.startPage(Integer.parseInt(pagenum), 10);
-        List<User> userList = userService.queryByDepartmentOrderById(user);
-        PageInfo info = new PageInfo<>(page.getResult());
-        String pageCount = info.getPages() + "";
-        httpServletResponse.setHeader("pageCount", pageCount);
-        jsonObject.put("user", userList);
-        return new ResponseEntity(jsonObject, HttpStatus.OK);
-    }
 
 }

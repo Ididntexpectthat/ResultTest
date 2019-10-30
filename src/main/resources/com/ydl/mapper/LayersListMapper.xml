@@ -181,4 +181,10 @@
         </set>
         where  name = #{name,jdbcType=VARCHAR}
     </update>
+
+    <delete id="deleteLayersByName">
+        delete from layerslist
+        where
+        name = #{name,jdbcType=VARCHAR}
+    </delete>
 </mapper>

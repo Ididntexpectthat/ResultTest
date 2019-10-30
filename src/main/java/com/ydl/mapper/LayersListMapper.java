@@ -19,4 +19,6 @@ public interface LayersListMapper {
     void updateUpdateTime(String updatetime, String name);
 
     void updateModifyTime(String modifytime, String name);
+
+    void deleteLayersByName(LayersList layersList);
 }

@@ -21,4 +21,6 @@ public interface LayersListService {
     void updateUpdateTime(String updateTime,String name);
 
     void updateModifyTime(String modifyTime,String name);
+
+    void deleteLayersByName(LayersList layersList);
 }

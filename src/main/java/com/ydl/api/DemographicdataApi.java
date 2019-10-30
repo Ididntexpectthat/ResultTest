@@ -30,7 +30,7 @@ public class DemographicdataApi {
     @Autowired
     DemographicDataMapper demographicDataMapper;
 
-//    @UserLoginToken
+    @UserLoginToken
     @PostMapping("/getAll")
     public Object getAllDemograhicData(@RequestBody DemographicData demographicData) {
 //            return new ResponseEntity(demographicDataMapper.selectByPrimaryKey(demographicData.get编号()),HttpStatus.OK);
