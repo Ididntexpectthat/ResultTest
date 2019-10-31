@@ -11,11 +11,9 @@
     <groupId>com.ydl</groupId>
     <artifactId>NewName</artifactId>
     <version>11</version>
-    <name>kaptcha_jwt2</name>
+    <name>ResultTest</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
-
-
 
 
     <properties>
@@ -142,16 +140,16 @@
             <artifactId>joda-time</artifactId>
             <version>2.9.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-shapefile</artifactId>
-            <version>${geotools.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-swing</artifactId>
-            <version>${geotools.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.geotools</groupId>-->
+<!--            <artifactId>gt-shapefile</artifactId>-->
+<!--            <version>${geotools.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.geotools</groupId>-->
+<!--            <artifactId>gt-swing</artifactId>-->
+<!--            <version>${geotools.version}</version>-->
+<!--        </dependency>-->
 <!--        开启事务-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
