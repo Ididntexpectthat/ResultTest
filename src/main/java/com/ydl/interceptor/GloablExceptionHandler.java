@@ -14,6 +14,7 @@ public class GloablExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
+        System.out.println(e);
         String msg = e.getMessage();
         if (msg == null || msg.equals("")) {
             msg = "服务器出错";

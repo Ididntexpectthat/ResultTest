@@ -73,20 +73,22 @@ public class LayersListApi {
     public Object insertSelective(@RequestBody LayersList layersList) {
 //        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject jsonObject = new JSONObject();
-        System.out.println(layersListService.selectByName(layersList));
-        if (layersListService.selectByName(layersList) == null) {
-            layersListService.insertSelective(layersList);
+//        System.out.println(layersListService.selectByName(layersList));
+
+             int a =layersListService.insertSelective(layersList);
             Date date = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
             String updatetime = dateFormat.format(date);
             System.out.println(updatetime);
             layersListService.updateUpdateTime(updatetime, layersList.getName());
-
+            jsonObject.put("int",a);
             jsonObject.put("message", "添加成功");
             return new ResponseEntity(jsonObject, HttpStatus.OK);
-        }
-        jsonObject.put("message", "添加失败，名字已经存在!");
-        return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
+
+//        int a =layersListService.insertSelective(layersList);
+//        jsonObject.put("int",a);
+//        jsonObject.put("message", "添加失败，名字已经存在!");
+//        return new ResponseEntity(jsonObject, HttpStatus.UNAUTHORIZED);
     }
 
     @UserLoginToken
@@ -97,12 +99,14 @@ public class LayersListApi {
         LayersList newLayersList = JsonXMLUtils.map2LayersList((Map<String, Object>) models.get("newLayersList"), LayersList.class);
         JSONObject jsonObject = new JSONObject();
         System.out.println(oldLayersList.getName()+"   "+newLayersList.getName());
-        layersListService.updateByNameSelective(oldLayersList,newLayersList);
+        int a = layersListService.updateByNameSelective(oldLayersList,newLayersList);
+        jsonObject.put("inta",a);
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         String modifytime = dateFormat.format(date);
         System.out.println(modifytime);
-        layersListService.updateModifyTime(modifytime, newLayersList.getName());
+        int b = layersListService.updateModifyTime(modifytime, newLayersList.getName());
+        jsonObject.put("intb",b);
         jsonObject.put("message", "修改成功");
         return new ResponseEntity(jsonObject, HttpStatus.OK);
 
@@ -114,7 +118,8 @@ public class LayersListApi {
 //        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
 
         JSONObject jsonObject = new JSONObject();
-        layersListService.deleteLayersByName(layersList);
+        int a =layersListService.deleteLayersByName(layersList);
+        jsonObject.put("inta",a);
         jsonObject.put("message", "删除成功");
         return new ResponseEntity(jsonObject, HttpStatus.OK);
 

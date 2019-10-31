@@ -23,29 +23,29 @@ public class LayersListServiceImpl implements LayersListService {
     }
 
     @Override
-    public void insertSelective(LayersList layersList) {
-        layersListMapper.insertSelective(layersList);
+    public int insertSelective(LayersList layersList) {
+        return layersListMapper.insertSelective(layersList);
     }
 
     @Override
-    public void updateByNameSelective(LayersList oldLayersList, LayersList newLayersList) {
-        layersListMapper.updateByNameSelective(oldLayersList,newLayersList);
+    public int updateByNameSelective(LayersList oldLayersList, LayersList newLayersList) {
+       return layersListMapper.updateByNameSelective(oldLayersList,newLayersList);
     }
 
 
     @Override
-    public void updateUpdateTime(String updateTime, String name) {
-        layersListMapper.updateUpdateTime(updateTime, name);
+    public int updateUpdateTime(String updateTime, String name) {
+        return layersListMapper.updateUpdateTime(updateTime, name);
     }
 
     @Override
-    public void updateModifyTime(String modifyTime, String name) {
-        layersListMapper.updateModifyTime(modifyTime,name);
+    public int updateModifyTime(String modifyTime, String name) {
+        return layersListMapper.updateModifyTime(modifyTime,name);
     }
 
     @Override
-    public void deleteLayersByName(LayersList layersList) {
-        layersListMapper.deleteLayersByName(layersList);
+    public int deleteLayersByName(LayersList layersList) {
+       return layersListMapper.deleteLayersByName(layersList);
     }
 
 

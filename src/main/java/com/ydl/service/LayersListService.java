@@ -14,13 +14,13 @@ public interface LayersListService {
 
     LayersList selectByName(LayersList layersList);
 
-    void insertSelective(LayersList layersList);
+    int insertSelective(LayersList layersList);
 
-    void updateByNameSelective(LayersList oldLayersList,LayersList newLayersList);
+    int updateByNameSelective(LayersList oldLayersList,LayersList newLayersList);
 
-    void updateUpdateTime(String updateTime,String name);
+    int updateUpdateTime(String updateTime,String name);
 
-    void updateModifyTime(String modifyTime,String name);
+    int updateModifyTime(String modifyTime,String name);
 
-    void deleteLayersByName(LayersList layersList);
+    int deleteLayersByName(LayersList layersList);
 }

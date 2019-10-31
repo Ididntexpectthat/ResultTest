@@ -12,13 +12,13 @@ public interface LayersListMapper {
 
     LayersList selectByName(LayersList layersList);
 
-    void insertSelective(LayersList layersList);
+    int insertSelective(LayersList layersList);
 
-    void updateByNameSelective(LayersList oldLayersList, LayersList layersList);
+    int updateByNameSelective(LayersList oldLayersList, LayersList layersList);
 
-    void updateUpdateTime(String updatetime, String name);
+    int updateUpdateTime(String updatetime, String name);
 
-    void updateModifyTime(String modifytime, String name);
+    int updateModifyTime(String modifytime, String name);
 
-    void deleteLayersByName(LayersList layersList);
+    int deleteLayersByName(LayersList layersList);
 }
